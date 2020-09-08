@@ -22,6 +22,10 @@ public class NotesService {
         return notesMapper.getNotesByUserID(userID);
     }
 
+    public List<Notes> getNotesByUserName(String userName) {
+        return notesMapper.getNotesByUserName(userName);
+    }
+
     public int deleteNotesByID(Integer notesID) {
         return notesMapper.deleteNotes(notesID);
     }

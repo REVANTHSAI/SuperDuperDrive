@@ -12,6 +12,10 @@ public interface NotesMapper {
      @Select("SELECT * FROM NOTES WHERE userid = #{userID}")
      List<Notes> getNotesByUserID(Integer userID);
 
+    @Select("SELECT * FROM NOTES n JOIN USERS u ON n.userid=u.userid WHERE username = #{userName}")
+    List<Notes> getNotesByUserName(String userName);
+
+
     @Select("SELECT * FROM NOTES WHERE noteid = #{noteID}")
     Notes getNotesByNoteID(Integer noteID);
 
