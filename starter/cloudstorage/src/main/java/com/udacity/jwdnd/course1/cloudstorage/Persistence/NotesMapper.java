@@ -19,12 +19,15 @@ public interface NotesMapper {
     @Select("SELECT * FROM NOTES WHERE noteid = #{noteID}")
     Notes getNotesByNoteID(Integer noteID);
 
-     @Delete("DELETE * FROM NOTES WHERE noteid = #{noteID}")
+     @Delete("DELETE FROM NOTES WHERE noteid = #{noteID}")
      Integer deleteNotes(Integer noteID);
 
      @Insert("INSERT INTO NOTES (notetitle,notedescription,userid)"+
              "VALUES(#{notetitle},#{notedescription},#{userid})")
      @Options(useGeneratedKeys = true, keyProperty = "noteid")
      Integer insertNotes(Notes notes);
+
+     @Update("UPDATE NOTES SET notetitle=#{notetitle},notedescription=#{notedescription} WHERE noteid = #{noteid}")
+     Integer updateNotes(Notes notes);
 
 }

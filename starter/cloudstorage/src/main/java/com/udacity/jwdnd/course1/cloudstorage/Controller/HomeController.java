@@ -8,10 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,24 +25,30 @@ public class HomeController {
     }
 
     @GetMapping
-    public String getHome(@ModelAttribute Notes notes, Authentication authentication,Model model)
+//    @ModelAttribute Notes notes,
+    public String getNotes(Authentication authentication,Model model)
     {
         List<Notes> notesList = notesService.getNotesByUserName(authentication.getName());
         model.addAttribute("NotesList",notesList);
         return "home";
     }
 
-    @PostMapping
-    public String postHome(@ModelAttribute Notes notes,Authentication authentication,Model model)
+    @PostMapping(value = "/notes")
+    public String postNotes(@ModelAttribute Notes notes,Authentication authentication,Model model)
     {
         Users currentUser = userService.getUser(authentication.getName());
         if(currentUser!=null)
         {
             notes.setUserid(currentUser.getUserId());
             notesService.insertNotes(notes);
-            List<Notes> notesList = notesService.getNotesByUserName(authentication.getName());
-            model.addAttribute("NotesList",notesList);
         }
-        return "home";
+        return "redirect:/home";
+    }
+
+    @GetMapping(value = "/notes/delete")
+    public String deleteNotes(@ModelAttribute Notes notes,@RequestParam("id") int id,Authentication authentication,Model model)
+    {
+        notesService.deleteNotesByID(id);
+        return "redirect:/home";
     }
 }
