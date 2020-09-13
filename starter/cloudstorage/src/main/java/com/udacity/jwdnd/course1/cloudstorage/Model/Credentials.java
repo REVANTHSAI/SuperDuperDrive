@@ -6,6 +6,7 @@ public class Credentials {
     private String username;
     private String key;
     private String password;
+    private String dPassword;
     private Integer userid;
 
     public Credentials(Integer credentialid, String url, String username, String key, String password, Integer userid) {
@@ -15,6 +16,7 @@ public class Credentials {
         this.key = key;
         this.password = password;
         this.userid = userid;
+        this.dPassword = password;
     }
 
     public Integer getCredentialid() {
@@ -63,5 +65,13 @@ public class Credentials {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
+    }
+
+    public String getdPassword() {
+        return dPassword;
+    }
+
+    public void setdPassword(String dPassword) {
+        this.dPassword = dPassword;
     }
 }

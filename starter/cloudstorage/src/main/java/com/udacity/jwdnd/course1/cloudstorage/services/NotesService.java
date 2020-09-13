@@ -17,7 +17,7 @@ public class NotesService {
 
     public int insertNotes(Notes notes) {
         if(this.isNotesPresent(notes.getNoteid())) {
-            return notesMapper.updateNotes(notes);
+            return this.updateNotes(notes);
         }
         else{
             return notesMapper.insertNotes(notes);
@@ -34,6 +34,10 @@ public class NotesService {
 
     public int deleteNotesByID(Integer notesID) {
         return notesMapper.deleteNotes(notesID);
+    }
+
+    public int updateNotes(Notes notes){
+        return notesMapper.updateNotes(notes);
     }
 
     public Notes getNotesByID(Integer notesID){
