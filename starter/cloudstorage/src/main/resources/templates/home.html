@@ -25,14 +25,14 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
-                        <form action="#" enctype="multipart/form-data" method="POST">
+                        <form action="#" th:action="@{/files}" enctype="multipart/form-data" method="POST">
                             <div class="container">
                                 <div class="row" style="margin: 1em;">
                                     <div class="col-sm-2">
                                         <label for="fileUpload">Upload a New File:</label>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="file" class="form-control-file" id="fileUpload" name="fileUpload">
+                                        <input type="file" th:name="fileName" class="form-control-file" id="fileUpload" name="fileUpload">
                                     </div>
                                     <div class="col-sm-4">
                                         <button type="submit" class="btn btn-dark">Upload</button>
@@ -40,6 +40,7 @@
                                 </div>
                             </div>
                         </form>
+
                         <div class="table-responsive">
                             <table class="table table-striped" id="fileTable">
                                 <thead>
@@ -48,13 +49,13 @@
                                         <th style="width: 80%" scope="col">File Name</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody th:each ="file :  ${FileList}">
                                 <tr>
                                     <td>
-                                        <a target="_blank" class="btn btn-success">View</a>
-                                        <a  class="btn btn-danger">Delete</a>
+                                        <a target="_blank" class="btn btn-success" th:href="@{/files/download(fileID=${file.fileId})}">View</a>
+                                        <a  class="btn btn-danger" th:href="@{/files/delete(id=${file.fileId})}">Delete</a>
                                     </td>
-                                    <th scope="row">ExampleFile.txt</th>
+                                    <th scope="row" th:text = "${file.filename}">ExampleFile.txt</th>
                                 </tr>
                                 </tbody>
                             </table>
@@ -78,7 +79,7 @@
                                     <tr th:each="note : ${NotesList}">
                                         <td>
                                             <button type="button" class="btn btn-success" th:attr="onclick=|showNoteModal('${note.noteid}','${note.notetitle}','${note.notedescription}')|">Edit</button>
-                                            <a class="btn btn-danger" th:href="@{/home/notes/delete(id=${note.noteid})}" th:method="delete">Delete</a>
+                                            <a class="btn btn-danger" th:href="@{/notes/delete(id=${note.noteid})}" th:method="delete">Delete</a>
 
                                         </td>
                                         <th scope="row" th:text="${note.notetitle}">Title</th>
@@ -98,7 +99,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="" th:action="@{/home/notes}" method="POST" >
+                                        <form action="" th:action="@{/notes}" method="POST" >
                                            <input type="hidden" name="noteid" id="note-id">
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">Title</label>
@@ -138,7 +139,7 @@
                                 <tr>
                                     <td>
                                         <button type="button" class="btn btn-success" th:attr="onclick=|showCredentialModal('${cred.credentialid}','${cred.url}','${cred.username}','${cred.dPassword}')|">Edit</button>
-                                        <a class="btn btn-danger" th:href="@{/home/credentials/delete(id=${cred.credentialid})}" th:method="delete">Delete</a>
+                                        <a class="btn btn-danger" th:href="@{/credentials/delete(id=${cred.credentialid})}" th:method="delete">Delete</a>
                                     </td>
                                     <th scope="row" th:text="${cred.url}">Example Credential URL</th>
                                     <td th:text="${cred.username}">Example Credential Username</td>
@@ -158,7 +159,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="#" th:action="@{/home/credentials}" method="POST">
+                                        <form action="#" th:action="@{/credentials}" method="POST">
                                             <input type="hidden" name="credentialid" id="credential-id">
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">URL</label>
