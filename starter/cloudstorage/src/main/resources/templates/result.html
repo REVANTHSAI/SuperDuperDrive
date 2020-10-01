@@ -12,16 +12,16 @@
         <div class="container justify-content-center w-50 p-3" style="margin-top: 5em;">
             <div th:if="${updateSuccess}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Success</h1>
-                <span>Your changes were successfully saved. Click <a id="home-link-success" th:href="@{/home}">here</a> to continue to home page.</span>
+                <span id="success-message">Your changes were successfully saved. Click <a id="home-link-success" th:href="@{/home}">here</a> to continue to home page.</span>
             </div>
             <div th:if="${updateFail}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">Error</h1>
-                <span>Your changes were not saved. Click <a id="home-link-fail" th:href="@{/home}">here</a> to continue to home page.</span>
+                <span id="fail-message">Your changes were not saved. Click <a id="home-link-fail" th:href="@{/home}">here</a> to continue to home page.</span>
             </div>
             <div th:if="${updateError}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">Error</h1>
                 <span th:text="${updateError}"></span>
-                <span>Click <a id="home-link-error" th:href="@{/home}">here</a> to continue to home page.</span>
+                <span id="error-message">Click <a id="home-link-error" th:href="@{/home}">here</a> to continue to home page.</span>
             </div>
         </div>
     </body>
