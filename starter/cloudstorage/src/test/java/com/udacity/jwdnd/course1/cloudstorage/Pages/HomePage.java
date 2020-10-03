@@ -14,6 +14,8 @@ public class HomePage {
     @FindBy(id = "nav-notes-tab")
     private WebElement navNotes;
 
+    @FindBy(id="nav-credentials-tab")
+    private WebElement navCredentials;
 
     public HomePage(WebDriver driver) {
         PageFactory.initElements(driver,this);
@@ -25,6 +27,10 @@ public class HomePage {
 
     public void selectNotesTab(){
         navNotes.click();
+    }
+
+    public void selectCredTab(){
+        navCredentials.click();
     }
 
 }

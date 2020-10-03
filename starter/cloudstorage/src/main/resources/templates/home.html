@@ -121,7 +121,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-credentials" role="tabpanel" aria-labelledby="nav-credentials-tab">
-                        <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showCredentialModal()">
+                        <button id="add-credentials"style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showCredentialModal()">
                             + Add a New Credential
                         </button>
 
@@ -138,8 +138,8 @@
                                 <tbody th:each="cred : ${CredList}">
                                 <tr>
                                     <td>
-                                        <button type="button" class="btn btn-success" th:attr="onclick=|showCredentialModal('${cred.credentialid}','${cred.url}','${cred.username}','${cred.dPassword}')|">Edit</button>
-                                        <a class="btn btn-danger" th:href="@{/credentials/delete(id=${cred.credentialid})}" th:method="delete">Delete</a>
+                                        <button name="edit-cred" type="button" class="btn btn-success" th:attr="onclick=|showCredentialModal('${cred.credentialid}','${cred.url}','${cred.username}','${cred.dPassword}')|">Edit</button>
+                                        <a name="delete-cred" class="btn btn-danger" th:href="@{/credentials/delete(id=${cred.credentialid})}" th:method="delete">Delete</a>
                                     </td>
                                     <th scope="row" th:text="${cred.url}">Example Credential URL</th>
                                     <td th:text="${cred.username}">Example Credential Username</td>
@@ -178,7 +178,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>
+                                        <button id="credential-submit" type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>
                                     </div>
                                 </div>
                             </div>

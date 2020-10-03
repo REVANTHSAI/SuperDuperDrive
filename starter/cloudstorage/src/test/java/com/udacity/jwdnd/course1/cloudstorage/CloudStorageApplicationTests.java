@@ -98,60 +98,12 @@ class CloudStorageApplicationTests {
 
 	}
 
-
-//	@Test
-//	@Order(3)
-//	public void createNotesTest_3() throws InterruptedException {
-//
-//		String title = "Test Title";
-//		String body = "Test Body";
-//
-//		driver.get("http://localhost:" + this.port + "/signup");
-//		SignUpPage signUpPage = new SignUpPage(driver);
-//		signUpPage.signUp(firstName,lastName,userName,password);
-//
-//
-//		driver.get("http://localhost:" + this.port + "/login");
-//		LoginPage loginPage = new LoginPage(driver);
-//		loginPage.login(userName,password);
-//
-//		driver.get("http://localhost:" + this.port + "/home");
-//		Thread.sleep(1000);
-//		HomePage homePage = new HomePage(driver);
-//     	homePage.selectNotesTab();
-//
-//		Thread.sleep(1000);
-//     	NotesPage notesPage = new NotesPage(driver);
-//     	notesPage.clickAddButton();
-//
-//		Thread.sleep(1000);
-//		notesPage.addNotes(title,body);
-//		notesPage.clickSubmitNotes();
-//		Thread.sleep(1000);
-//
-//		ResultPage resultPage = new ResultPage(driver);
-//		Assertions.assertTrue(resultPage.isSuccessMessageDisplayed());
-//
-//		driver.get("http://localhost:" + this.port + "/home");
-//		Thread.sleep(1000);
-//		homePage = new HomePage(driver);
-//		homePage.selectNotesTab();
-//
-//		notesPage = new NotesPage(driver);
-//		Assertions.assertTrue(notesPage.doesNotesExist(title));
-//	}
-
 	@Test
 	@Order(3)
 	public void createNotesTest_3() throws InterruptedException {
 
 		String title = "Test Title";
 		String body = "Test Body";
-
-		driver.get("http://localhost:" + this.port + "/signup");
-		SignUpPage signUpPage = new SignUpPage(driver);
-		signUpPage.signUp(firstName,lastName,userName,password);
-
 
 		driver.get("http://localhost:" + this.port + "/login");
 		LoginPage loginPage = new LoginPage(driver);
@@ -176,10 +128,8 @@ class CloudStorageApplicationTests {
 
 		driver.get("http://localhost:" + this.port + "/home");
 		Thread.sleep(1000);
-		homePage = new HomePage(driver);
 		homePage.selectNotesTab();
 
-		notesPage = new NotesPage(driver);
 		Assertions.assertTrue(notesPage.doesNotesExist(title));
 	}
 
@@ -190,11 +140,6 @@ class CloudStorageApplicationTests {
 		String updatedTitle = "Updated Test Title";
 		String title = "Test Title";
 		String body = "Test Body";
-
-		driver.get("http://localhost:" + this.port + "/signup");
-		SignUpPage signUpPage = new SignUpPage(driver);
-		signUpPage.signUp(firstName,lastName,userName,password);
-
 
 		driver.get("http://localhost:" + this.port + "/login");
 		LoginPage loginPage = new LoginPage(driver);
@@ -224,12 +169,9 @@ class CloudStorageApplicationTests {
 
 		driver.get("http://localhost:" + this.port + "/home");
 		Thread.sleep(1000);
-		homePage = new HomePage(driver);
      	homePage.selectNotesTab();
 
-     	notesPage = new NotesPage(driver);
      	Assertions.assertTrue(notesPage.doesNotesExist(updatedTitle));
-
 	}
 
 
@@ -238,11 +180,6 @@ class CloudStorageApplicationTests {
 	public void deleteNoteTest_5() throws InterruptedException {
 		String title = "Test Title";
 		String body = "Test Body";
-
-		driver.get("http://localhost:" + this.port + "/signup");
-		SignUpPage signUpPage = new SignUpPage(driver);
-		signUpPage.signUp(firstName,lastName,userName,password);
-
 
 		driver.get("http://localhost:" + this.port + "/login");
 		LoginPage loginPage = new LoginPage(driver);
@@ -264,11 +201,9 @@ class CloudStorageApplicationTests {
 
 		driver.get("http://localhost:" + this.port + "/home");
 		Thread.sleep(1000);
-		homePage = new HomePage(driver);
 		homePage.selectNotesTab();
 		Thread.sleep(1000);
 
-		notesPage = new NotesPage(driver);
 		notesPage.deleteNote();
 		Thread.sleep(1000);
 
@@ -276,5 +211,112 @@ class CloudStorageApplicationTests {
 		Assertions.assertTrue(resultPage.isSuccessMessageDisplayed());
 	}
 
+	@Test
+	@Order(6)
+	public void createCredentialsTest_6() throws InterruptedException {
+		String testURL = "www.testwebsite.com";
+		String userName = "rsr361";
+		String password = "pass1234";
+
+		driver.get("http://localhost:" + this.port + "/signup");
+		SignUpPage signUpPage = new SignUpPage(driver);
+		signUpPage.signUp(firstName,lastName,userName,password);
+
+
+		driver.get("http://localhost:" + this.port + "/login");
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.login(userName,password);
+
+		driver.get("http://localhost:" + this.port + "/home");
+		Thread.sleep(1000);
+		HomePage homePage = new HomePage(driver);
+		homePage.selectCredTab();
+
+		Thread.sleep(1000);
+		CredPage credPage = new CredPage(driver);
+		credPage.clickAddCredentials();
+
+		Thread.sleep(1000);
+		credPage.populateCredentials(testURL,userName,password);
+		Thread.sleep(1000);
+		credPage.clickSubmitCredentials();
+
+		Thread.sleep(1000);
+		ResultPage resultPage = new ResultPage(driver);
+		Assertions.assertTrue(resultPage.isSuccessMessageDisplayed());
+
+	}
+
+	@Test
+	@Order(7)
+	public void editCredentialTest_7() throws InterruptedException {
+		String testURL = "www.testwebsite.com";
+		String userName = "rsr361";
+		String password = "pass1234";
+		String newTestURL = "www.testwebsite.com";
+
+		driver.get("http://localhost:" + this.port + "/login");
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.login(userName,password);
+
+		driver.get("http://localhost:" + this.port + "/home");
+		Thread.sleep(1000);
+		HomePage homePage = new HomePage(driver);
+		homePage.selectCredTab();
+
+		Thread.sleep(1000);
+		CredPage credPage = new CredPage(driver);
+		credPage.clickAddCredentials();
+
+		Thread.sleep(1000);
+		credPage.populateCredentials(testURL,userName,password);
+		Thread.sleep(1000);
+		credPage.clickSubmitCredentials();
+
+		Thread.sleep(1000);
+		ResultPage resultPage = new ResultPage(driver);
+		Assertions.assertTrue(resultPage.isSuccessMessageDisplayed());
+
+		driver.get("http://localhost:" + this.port + "/home");
+		Thread.sleep(1000);
+		credPage.editCred(newTestURL);
+
+		Thread.sleep(1000);
+		Assertions.assertTrue(resultPage.isSuccessMessageDisplayed());
+	}
+
+	@Test
+	@Order(8)
+	public void deleteCredentialTest() throws InterruptedException {
+		String testURL = "www.testwebsite.com";
+		String userName = "rsr361";
+		String password = "pass1234";
+
+		driver.get("http://localhost:" + this.port + "/login");
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.login(userName,password);
+
+		driver.get("http://localhost:" + this.port + "/home");
+		Thread.sleep(1000);
+		HomePage homePage = new HomePage(driver);
+		homePage.selectCredTab();
+
+		Thread.sleep(1000);
+		CredPage credPage = new CredPage(driver);
+		credPage.clickAddCredentials();
+
+		Thread.sleep(1000);
+		credPage.populateCredentials(testURL,userName,password);
+		Thread.sleep(1000);
+		credPage.clickSubmitCredentials();
+
+		driver.get("http://localhost:" + this.port + "/home");
+		Thread.sleep(1000);
+		credPage.deleteCred();
+		Thread.sleep(1000);
+
+		ResultPage resultPage =new ResultPage(driver);
+		Assertions.assertTrue(resultPage.isSuccessMessageDisplayed());
+	}
 
 }
